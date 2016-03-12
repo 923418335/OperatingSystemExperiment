@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">进程管理</string>
+    <string name="action_settings">设置</string>
+    <string name="stop_all">停止所有</string>
+</resources>
