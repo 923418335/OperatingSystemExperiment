@@ -5,4 +5,7 @@ package com.example.operatingsystemexperiment.util;
  */
 public interface Constant {
     boolean DEBUG = true;
+    int RUNING = 1;
+    int BLOCK = 2;
+    int READY = 3;
 }

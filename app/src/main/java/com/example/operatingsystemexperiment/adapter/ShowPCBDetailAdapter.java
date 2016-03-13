@@ -46,6 +46,7 @@ public class ShowPCBDetailAdapter extends RecyclerView.Adapter<ShowPCBDetailAdap
         TextView showTextView;
         public MyViewHolder(View itemView) {
             super(itemView);
+            showTextView = (TextView) itemView.findViewById(R.id.mShowPCB);
         }
     }
 

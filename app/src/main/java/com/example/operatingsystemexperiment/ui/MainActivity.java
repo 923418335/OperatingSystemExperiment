@@ -16,6 +16,8 @@ import android.widget.EditText;
 
 import com.example.operatingsystemexperiment.R;
 import com.example.operatingsystemexperiment.adapter.ViewPagerAdapter;
+import com.example.operatingsystemexperiment.bean.PCB;
+import com.example.operatingsystemexperiment.util.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,27 +29,37 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private AbstractShowFragment mShowReadyFragment;
     private AbstractShowFragment mShowRuningFragment;
     private AbstractShowFragment mShowBlockFragment;
+    private List<PCB> mReadyList;
+    private List<PCB> mRuningList;
+    private List<PCB> mBlockList;
     private FloatingActionButton mAddPCBBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initData();
         findView();
         initToolBar();
         setListener();
         initView();
     }
 
+    private void initData() {
+        mReadyList = new ArrayList<>();
+        mRuningList = new ArrayList<>();
+        mBlockList = new ArrayList<>();
+    }
+
 
     private void initView() {
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
-        mShowReadyFragment = new ShowPCBFragment("就绪");
-        mShowBlockFragment = new ShowPCBFragment("堵塞");
-        mShowRuningFragment = new ShowPCBFragment("运行");
+        mShowReadyFragment = new ShowPCBFragment(Constant.READY);
+        mShowBlockFragment = new ShowPCBFragment(Constant.BLOCK);
+        mShowRuningFragment = new ShowPCBFragment(Constant.RUNING);
         List<AbstractShowFragment> fragments = new ArrayList<>();
         fragments.add(mShowReadyFragment);
-        fragments.add(mShowBlockFragment);
         fragments.add(mShowRuningFragment);
+        fragments.add(mShowBlockFragment);
         mPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),fragments);
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
@@ -104,11 +116,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 new AlertDialog.Builder(this).setTitle("创建新进程").setView(view).setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                         String pcbName = dataInput.getText().toString();
+                        String pcbName = dataInput.getText().toString();
                         toast(pcbName);
+                        mShowReadyFragment.add(new PCB(pcbName));
                     }
                 }).show();
                 break;
         }
     }
+
+
+    public List<PCB> getBlockList() {
+        return mBlockList;
+    }
+
+    public List<PCB> getRuningList() {
+        return mRuningList;
+    }
+
+    public List<PCB> getReadyList() {
+        return mReadyList;
+    }
+
 }
