@@ -3,7 +3,7 @@ package com.example.operatingsystemexperiment.adapter;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.operatingsystemexperiment.ui.AbstractShowFragment;
+import com.example.operatingsystemexperiment.ui.base.AbstractShowFragment;
 
 import java.util.List;
 
@@ -22,6 +22,8 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         super(fm);
         this.fragments = fragments;
     }
+
+
 
     @Override
     public android.support.v4.app.Fragment getItem(int position) {

@@ -7,6 +7,16 @@ import android.app.Application;
  */
 public class MyApplication extends Application {
     private static int MaxPCBRuningNumber = 1;
+    private static int MaxMemorySize = 64;
+
+    public static int getMaxMemorySize() {
+        return MaxMemorySize;
+    }
+
+    public static void setMaxMemorySize(int maxMemorySize) {
+        MaxMemorySize = maxMemorySize;
+    }
+
     public static void setMaxPCBRuning(int number){
         MaxPCBRuningNumber = number;
     }

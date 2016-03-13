@@ -18,6 +18,11 @@ import java.util.List;
 public class ShowPCBDetailAdapter extends RecyclerView.Adapter<ShowPCBDetailAdapter.MyViewHolder> {
     private List<PCB> pcbs;
     private Context mContext;
+    private OnClickListener onClickListener;
+
+    public void setOnClickListener(OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
 
     public ShowPCBDetailAdapter(List<PCB> pcbs, Context mContext) {
         this.pcbs = pcbs;
@@ -34,6 +39,7 @@ public class ShowPCBDetailAdapter extends RecyclerView.Adapter<ShowPCBDetailAdap
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.position = position;
         holder.showTextView.setText(pcbs.get(position).toString());
+        holder.showTextView.setTextColor(mContext.getResources().getColor(pcbs.get(position).getColor()));
     }
 
     @Override
@@ -47,7 +53,19 @@ public class ShowPCBDetailAdapter extends RecyclerView.Adapter<ShowPCBDetailAdap
         public MyViewHolder(View itemView) {
             super(itemView);
             showTextView = (TextView) itemView.findViewById(R.id.mShowPCB);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onClickListener != null) {
+                        onClickListener.onClick(v, position);
+                    }
+                }
+            });
         }
+    }
+
+    public interface OnClickListener{
+        void onClick(View v, int position);
     }
 
 }
