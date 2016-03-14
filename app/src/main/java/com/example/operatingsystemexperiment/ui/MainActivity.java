@@ -22,8 +22,8 @@ import com.example.operatingsystemexperiment.ui.base.AbstractShowFragment;
 import com.example.operatingsystemexperiment.ui.base.BaseActivity;
 import com.example.operatingsystemexperiment.util.Constant;
 import com.example.operatingsystemexperiment.util.MemoryManageUtil;
+import com.example.operatingsystemexperiment.util.MyList;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -38,6 +38,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private List<PCB> mRuningList;
     private List<PCB> mBlockList;
     private FloatingActionButton mAddPCBBtn;
+    private List<AbstractShowFragment> mFragments;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +51,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initData() {
-        mReadyList = new ArrayList<>();
-        mRuningList = new ArrayList<>();
-        mBlockList = new ArrayList<>();
+        mReadyList = new MyList<>();
+        mRuningList = new MyList<>();
+        mBlockList = new MyList<>();
     }
 
 
@@ -62,12 +63,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mShowBlockFragment = new ShowPCBFragment(Constant.BLOCK);
         mShowRuningFragment = new ShowPCBFragment(Constant.RUNING);
         mShowMemoryFragment = new ShowMemoryFragment();
-        List<AbstractShowFragment> fragments = new ArrayList<>();
-        fragments.add(mShowReadyFragment);
-        fragments.add(mShowRuningFragment);
-        fragments.add(mShowBlockFragment);
-        fragments.add(mShowMemoryFragment);
-        mPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),fragments);
+        mFragments.add(mShowReadyFragment);
+        mFragments.add(mShowRuningFragment);
+        mFragments.add(mShowBlockFragment);
+        mFragments.add(mShowMemoryFragment);
+        mPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),mFragments);
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
     }
@@ -82,7 +82,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 3) {
+                if (mFragments.get(position) == mShowMemoryFragment) {
                     mShowMemoryFragment.updata();
                 }
             }
@@ -128,6 +128,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mBlockList.clear();
         mRuningList.clear();
         mReadyList.clear();
+        MemoryManageUtil.getSingle().clear();
+        MemoryManageUtil.getSingle().show();
         if(mShowMemoryFragment.isResumed()){
             mShowMemoryFragment.updata();
         }
@@ -164,6 +166,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                             if(mShowMemoryFragment.isResumed()){
                                 mShowMemoryFragment.updata();
                             }
+                            MemoryManageUtil.getSingle().show();
 
                         }
                     }

@@ -129,6 +129,7 @@ public class ShowPCBFragment extends AbstractShowFragment implements ShowPCBDeta
                         pcbs.remove(position);
                         ((MainActivity) getActivity()).dispatchPCB();
                         mAdapter.notifyDataSetChanged();
+                        MemoryManageUtil.getSingle().show();
                         break;
                 }
             }

@@ -1,7 +1,5 @@
 package com.example.operatingsystemexperiment.util;
 
-import android.util.Log;
-
 import com.example.operatingsystemexperiment.MyApplication;
 import com.example.operatingsystemexperiment.bean.PCB;
 import com.example.operatingsystemexperiment.bean.Space;
@@ -36,18 +34,15 @@ public class MemoryManageUtil {
             if(mFreeSpace.get(i).size >= pcb.getSize()){
                 Space s = new Space(mFreeSpace.get(i).start, pcb.getSize());
                 pcb.setAdress(s.start);
-                LogUtil.i("fuck", String.valueOf(pcb.getAdress()));
                 mUserSpace.add(s);
                 if(mFreeSpace.get(i).size == pcb.getSize()){
                     mFreeSpace.remove(i);
                 }else{
-                    int start = mFreeSpace.get(i).start + pcb.getSize();
+                    int start = pcb.getAdress() + pcb.getSize();
                     int end = mFreeSpace.get(i).end;
                     mFreeSpace.remove(i);
                     mFreeSpace.add(new Space(start, end - start));
                 }
-//                Log.i("fuck", "Free : " + mFreeSpace.toString());
-//                Log.i("fuck", "User : " + mUserSpace.toString());
                 return true;
             }
         }
@@ -64,18 +59,15 @@ public class MemoryManageUtil {
         }
         if(pcb.getAdress() == 0){
             //回收开头的内存
-//            Log.i("fuck", "回收开头");
-            int temp = pcb.getAdress() + pcb.getSize();
-            Log.i("fuck", String.valueOf(temp));
+            int temp = pcb.getSize();
             for(Space space : mFreeSpace){
                 if(space.start == temp){
                     mFreeSpace.remove(space);
                     mFreeSpace.add(new Space(0, space.end));
-//                    Log.i("fuck", "Free : " + mFreeSpace.toString());
-//                    Log.i("fuck", "User : " + mUserSpace.toString());
                     return;
                 }
             }
+            mFreeSpace.add(new Space(0, pcb.getSize()));
             return;
         }
         if(pcb.getAdress() + pcb.getSize() == MyApplication.getMaxMemorySize()){
@@ -88,9 +80,7 @@ public class MemoryManageUtil {
                     return;
                 }
             }
-//            Log.i("fuck", "回收结尾");
-//            Log.i("fuck", "Free : " + mFreeSpace.toString());
-//            Log.i("fuck", "User : " + mUserSpace.toString());
+            mFreeSpace.add(new Space(pcb.getAdress(), MyApplication.getMaxMemorySize()));
             return;
         }
         //回收中间的内存
@@ -117,8 +107,16 @@ public class MemoryManageUtil {
 
 
         mFreeSpace.add(recySpace);
-//        Log.i("fuck", "Free : " + mFreeSpace.toString());
-//        Log.i("fuck", "User : " + mUserSpace.toString());
     }
 
+
+    public  void clear(){
+        mFreeSpace.clear();
+        mUserSpace.clear();
+    }
+
+    public void show(){
+        LogUtil.i("MemoryManageUtil","Memory->Free" + mFreeSpace.toString());
+        LogUtil.i("MemoryManageUtil","Memory->User" + mUserSpace.toString());
+    }
 }

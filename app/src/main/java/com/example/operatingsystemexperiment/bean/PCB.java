@@ -51,6 +51,11 @@ public class PCB {
                 ;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return this.uid == ((PCB)o).uid;
+    }
+
     private String name;
     private int uid;
     private int size;

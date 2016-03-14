@@ -2,6 +2,7 @@ package com.example.operatingsystemexperiment.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,8 @@ public class ShowPCBDetailAdapter extends RecyclerView.Adapter<ShowPCBDetailAdap
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.position = position;
+        Log.i("fuck", "position" + position);
+        Log.i("fuck", String.valueOf(pcbs.get(position) == null));
         holder.showTextView.setText(pcbs.get(position).toString());
         holder.showTextView.setTextColor(mContext.getResources().getColor(pcbs.get(position).getColor()));
     }
