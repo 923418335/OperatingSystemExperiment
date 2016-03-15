@@ -13,7 +13,7 @@
             android:id="@+id/mUserMemory"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:text="占用:20KB"
+            android:text="占用:20字节"
             android:gravity="center_horizontal"
             android:layout_height="wrap_content" />
         <TextView
@@ -21,7 +21,7 @@
             android:layout_width="0dp"
             android:gravity="center_horizontal"
             android:layout_weight="1"
-            android:text="空闲:102KB"
+            android:text="空闲:102字节"
             android:layout_height="wrap_content" />
     </LinearLayout>
     <android.support.v7.widget.RecyclerView

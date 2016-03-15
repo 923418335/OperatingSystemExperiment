@@ -20,7 +20,7 @@
 
         android:layout_margin="16dp"
         android:id="@+id/input_pcb_size"
-        android:hint="请输入大小(KB)"
+        android:hint="请输入大小(Byte)"
         android:layout_gravity="center_horizontal"
         android:layout_width="300dp"
         android:gravity="center_horizontal"

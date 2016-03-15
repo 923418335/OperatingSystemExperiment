@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.example.operatingsystemexperiment.MyApplication;
 import com.example.operatingsystemexperiment.R;
 import com.example.operatingsystemexperiment.bean.PCB;
+import com.example.operatingsystemexperiment.util.BitGraphManageUtil;
 
 import java.util.List;
 
@@ -32,11 +33,19 @@ public class ShowMemoryAdapter extends RecyclerView.Adapter<ShowMemoryAdapter.My
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.setIsRecyclable(false);
+        if(BitGraphManageUtil.getSingle().isSystemMemory(position)){
+            holder.rootView.setBackgroundResource(R.color.black);
+            return;
+        }
         for(PCB pcb : mPcbs){
-            if(pcb.getAdress() <= position && position < pcb.getAdress() + pcb.getSize()){
+            if(pcb.getBitGraph().contains(position)){
                 holder.rootView.setBackgroundResource(pcb.getColor());
                 break;
             }
+//                        if(pcb.getAdress() <= position && position < pcb.getAdress() + pcb.getSize()){
+//                            holder.rootView.setBackgroundResource(pcb.getColor());
+//                break;
+//            }
         }
     }
 

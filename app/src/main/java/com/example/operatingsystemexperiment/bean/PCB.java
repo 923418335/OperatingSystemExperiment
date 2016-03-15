@@ -2,10 +2,14 @@ package com.example.operatingsystemexperiment.bean;
 
 import com.example.operatingsystemexperiment.util.ColorUtil;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * Created by 山东娃 on 2016/3/12.
  */
-public class PCB {
+public class PCB implements Serializable{
+
     static int UID = 0;
     public String getName() {
         return name;
@@ -42,12 +46,20 @@ public class PCB {
         this.adress = adress;
     }
 
+    public List<Integer> getBitGraph() {
+        return bitGraph;
+    }
+
+    public void setBitGraph(List<Integer> bitGraph) {
+        this.bitGraph = bitGraph;
+    }
+
     @Override
     public String toString() {
         return
                 "name='" + name + '\'' +
                 ", uid=" + uid +
-                ", size=" + size + "kb"
+                ", size=" + size + "byte"
                 ;
     }
 
@@ -61,4 +73,5 @@ public class PCB {
     private int size;
     private int color;
     private int adress;
+    private List<Integer> bitGraph;
 }

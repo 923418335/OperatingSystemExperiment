@@ -8,9 +8,13 @@ import android.app.Application;
 public class MyApplication extends Application {
     private static int MaxPCBRuningNumber = 1;
     private static int MaxMemorySize = 128;
-
+    private static int MaxMemoryByte = MaxMemorySize * 1024;
     public static int getMaxMemorySize() {
         return MaxMemorySize;
+    }
+
+    public static int getMaxMemoryByte() {
+        return MaxMemoryByte;
     }
 
     public static void setMaxMemorySize(int maxMemorySize) {
